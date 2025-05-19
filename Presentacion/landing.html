@@ -1,97 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presentación de Proyectos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentación de Proyectos</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #667eea, #764ba2);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 20px;
-    }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(to right, #667eea, #764ba2);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 20px;
+      }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
 
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      width: 100%;
-      max-width: 1000px;
-    }
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1000px;
+      }
 
-    .card {
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 1.5rem;
-      text-align: center;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
+      .card {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-    }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      }
 
-    .card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
+      .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
 
-    .card p {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
+      .card p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
 
-    .card a {
-      text-decoration: none;
-      background-color: #fff;
-      color: #764ba2;
-      padding: 0.5rem 1rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
+      .card a {
+        text-decoration: none;
+        background-color: #fff;
+        color: #764ba2;
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
 
-    .card a:hover {
-      background-color: #f0f0f0;
-      color: #5a3e92;
-    }
-  </style>
-</head>
-<body>
-  <h1>Proyectos Interactivos</h1>
-  <div class="card-container">
-    <div class="card">
-      <h2>Sorteo de Equipos</h2>
-      <p>Herramienta para formar equipos aleatorios de forma rápida y visual.</p>
-      <a href="../sorteo/index.html" target="_blank">Ir al Sorteo</a>
+      .card a:hover {
+        background-color: #f0f0f0;
+        color: #5a3e92;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Proyectos Interactivos</h1>
+    <div class="card-container">
+      <div class="card">
+        <h2>Sorteo de Equipos</h2>
+        <p>
+          Herramienta para formar equipos aleatorios de forma rápida y visual.
+        </p>
+        <a href="../pregunta2/pregunta2.html" target="_blank">Ir al Sorteo</a>
+      </div>
+      <div class="card">
+        <h2>Ruleta Aleatoria</h2>
+        <p>Gira la ruleta para seleccionar al azar una opción entre varias.</p>
+        <a href="../01/index.html" target="_blank">Ir a la Ruleta</a>
+      </div>
     </div>
-    <div class="card">
-      <h2>Ruleta Aleatoria</h2>
-      <p>Gira la ruleta para seleccionar al azar una opción entre varias.</p>
-      <a href="../ruleta/index.html" target="_blank">Ir a la Ruleta</a>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
