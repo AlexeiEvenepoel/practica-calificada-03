@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula Virtual - Ruleta Aleatoria</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Aula Virtual - Ruleta</h1>
+
+      <div class="main-content">
+        <div class="ruleta-container">
+          <canvas id="ruletaCanvas" width="400" height="400"></canvas>
+          <div id="trianguloPuntero"></div>
+          <div id="mensajeRuleta">haz clic para girarlo</div>
+        </div>
+
+        <div class="controls-container">
+          <div class="resultado">
+            <div class="resultado-label">RESPUESTA</div>
+            <div id="elementoSeleccionado"></div>
+          </div>
+
+          <div class="buttons">
+            <button id="btnIniciar" class="btn btn-primary">Iniciar</button>
+            <button id="btnReiniciar" class="btn btn-secondary">
+              Reiniciar
+            </button>
+          </div>
+
+          <div class="textarea-section">
+            <textarea id="elementosTextArea" rows="12" cols="30" readonly>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</textarea
+            >
+
+            <div class="textarea-buttons">
+              <button id="btnTitulo" class="btn">Título</button>
+              <button id="btnEditar" class="btn">Editar</button>
+              <button id="btnEsconder" class="btn">esconder...</button>
+            </div>
+          </div>
+
+          <div class="instructions">
+            <div><span class="key">SPACE</span> Giralo</div>
+            <div>
+              <span class="key">S</span> Ocultar el elemento seleccionado
+            </div>
+            <div><span class="key">R</span> Reiniciar</div>
+            <div><span class="key">E</span> Editar</div>
+            <div><span class="key">F</span> Pantalla completa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/ruleta.js"></script>
+  </body>
+</html>
