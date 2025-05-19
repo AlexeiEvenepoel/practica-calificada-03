@@ -174,9 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Determinar duración del giro (entre 3 y 5 segundos)
     const duracion = 3000 + Math.random() * 2000;
-    const tiempoInicio = performance.now();
-
-    // Función de animación del giro
+    const tiempoInicio = performance.now();    // Función de animación del giro
     function animarGiro(tiempoActual) {
       // Calcular progreso de la animación
       const tiempoTranscurrido = tiempoActual - tiempoInicio;
@@ -188,6 +186,16 @@ document.addEventListener("DOMContentLoaded", function () {
       // Calcular ángulo actual según el progreso
       anguloActual =
         anguloActual + (anguloFinal - anguloActual) * progresoEasing;
+
+      // Calcular y mostrar el elemento seleccionado en tiempo real
+      if (progreso > 0.95) { // Cuando está cerca del final
+        const anguloNormalizado = anguloActual % (Math.PI * 2);
+        const anguloPuntero = -Math.PI / 2;
+        const anguloSector = (Math.PI * 2) / elementosVisibles.length;
+        const sectorSeleccionado = Math.floor(((anguloPuntero - anguloNormalizado) / anguloSector) % elementosVisibles.length);
+        elementoSeleccionadoIndex = (sectorSeleccionado + elementosVisibles.length) % elementosVisibles.length;
+        elementoSeleccionadoDiv.textContent = elementosVisibles[elementoSeleccionadoIndex];
+      }
 
       // Dibujar la ruleta con el nuevo ángulo
       dibujarRuleta();
@@ -203,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Iniciar animación
     requestAnimationFrame(animarGiro);
   }
-
   // Finalizar el giro y mostrar el resultado
   function finalizarGiro(elementosVisibles) {
     estaGirando = false;
@@ -211,23 +218,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Normalizar el ángulo final
     anguloActual = anguloActual % (Math.PI * 2);
 
-    // Calcular el ángulo del puntero (parte superior de la ruleta)
-    const anguloPuntero = -Math.PI / 2; // Apunta hacia arriba
+    // El elemento ya debería estar mostrado por la animación
+    // Solo actualizamos el estado final y el mensaje
 
-    // Calcular el ángulo del sector
-    const anguloSector = (Math.PI * 2) / elementosVisibles.length;
-
-    // Determinar qué sector está bajo el puntero
-    const sectorSeleccionado = Math.floor(
-      ((anguloPuntero - anguloActual) / anguloSector) % elementosVisibles.length
-    );
-    elementoSeleccionadoIndex =
-      (sectorSeleccionado + elementosVisibles.length) %
-      elementosVisibles.length;
-
-    // Mostrar el elemento seleccionado
-    const elementoSeleccionado = elementosVisibles[elementoSeleccionadoIndex];
-    elementoSeleccionadoDiv.textContent = elementoSeleccionado;
+    // Actualizar estado visual
+    dibujarRuleta();
 
     // Actualizar mensaje
     mensajeRuleta.textContent = "haz clic para girarlo";
