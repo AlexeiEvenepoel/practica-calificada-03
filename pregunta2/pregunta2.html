@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de Equipos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <p><strong>Crea <span class="highlight">equipos al azar</span></strong> a partir de una lista de nombres de forma automática y gratuita.</p>
+
+    <div class="card">
+      <div class="form">
+        <div class="section">
+          <label><strong>1. Ingresa los participantes</strong></label>
+          <textarea id="participants" maxlength="5000" rows="8" placeholder="Cada participante debe estar en una nueva línea"></textarea>
+          <div class="note">Agrega un * para indicar líderes de grupo. *Líder</div>
+          <div class="char-count" id="charCount">0</div>
+        </div>
+
+        <div class="section">
+          <label><strong>2. Cómo dividir:</strong></label>
+          <div class="radio-group">
+            <label><input type="radio" name="division" value="equipos" checked> Cantidad de equipos</label>
+            <label><input type="radio" name="division" value="porEquipo"> Participantes por equipo</label>
+          </div>
+          <select id="divisionValue">
+            <option value="2">2 equipos ✓</option>
+            <option value="3">3 equipos</option>
+            <option value="4">4 equipos</option>
+          </select>
+        </div>
+
+        <div class="section">
+          <label><strong>3. Título</strong></label>
+          <input type="text" id="titulo" placeholder="Copa del Mundo Qatar 2022">
+        </div>
+
+        <div class="button-group">
+          <button id="limpiar">Limpiar</button>
+          <button id="generar">Generar equipos</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultado" class="hidden"></div>
+
+    <div id="acciones" class="hidden">
+      <button onclick="descargar()">Descargar JPG</button>
+      <button onclick="copiar()">Copiar al portapapeles</button>
+      <button onclick="copiarColumnas()">Copiar por columnas</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
