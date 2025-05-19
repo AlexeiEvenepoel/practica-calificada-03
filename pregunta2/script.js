@@ -4,6 +4,8 @@ const generarBtn = document.getElementById("generar");
 const limpiarBtn = document.getElementById("limpiar");
 const resultadoDiv = document.getElementById("resultado");
 const accionesDiv = document.getElementById("acciones");
+const select = document.getElementById("divisionValue");
+const radios = document.querySelectorAll('input[name="division"]');
 
 participantsInput.addEventListener("input", () => {
   charCount.textContent = participantsInput.value.length;
@@ -22,11 +24,19 @@ generarBtn.addEventListener("click", () => {
   let participantes = participantsInput.value
     .split("\n")
     .map(p => p.trim())
-    .filter(p => p !== "")
-    .slice(0, 100); // máximo 100
+    .filter(p => p.length > 0);
+
+  if (participantes.length > 100) {
+    alert("Solo se permiten hasta 100 participantes.");
+    return;
+  }
 
   const modo = document.querySelector('input[name="division"]:checked').value;
-  const valor = parseInt(document.getElementById("divisionValue").value);
+
+  // Extraer número del texto del <select>
+  const valorTexto = select.options[select.selectedIndex].textContent;
+  const valor = parseInt(valorTexto); // ej. "3 equipos ✓" → 3
+
   const titulo = document.getElementById("titulo").value || "Equipos";
 
   if (participantes.length === 0) {
@@ -54,7 +64,10 @@ generarBtn.addEventListener("click", () => {
   equipos.forEach((equipo, i) => {
     const div = document.createElement("div");
     div.className = "equipo";
-    div.innerHTML = `<h3>${titulo} - Equipo ${i + 1}</h3><ul>${equipo.map(p => `<li>${p}</li>`).join("")}</ul>`;
+    div.innerHTML = `
+      <h3>${titulo} - Equipo ${i + 1}</h3>
+      <ul>${equipo.map(p => `<li>${p}</li>`).join("")}</ul>
+    `;
     resultadoDiv.appendChild(div);
   });
 
@@ -120,3 +133,20 @@ function descargar() {
 
   img.src = url;
 }
+
+// Generar dinámicamente el menú según el modo
+function actualizarOpciones() {
+  const modo = document.querySelector('input[name="division"]:checked').value;
+  select.innerHTML = "";
+  for (let i = 2; i <= 10; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = modo === "equipos" ? `${i} equipos ✓` : `${i} por equipo`;
+    select.appendChild(option);
+  }
+}
+
+actualizarOpciones();
+radios.forEach(radio => {
+  radio.addEventListener("change", actualizarOpciones);
+});
