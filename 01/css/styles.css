@@ -48,13 +48,13 @@ h1 {
 #trianguloPuntero {
   position: absolute;
   top: 0;
-  right: 50px;
+  left: 50%;
   width: 0;
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-top: 30px solid #ff0000;
-  transform: rotate(0deg);
+  transform: translateX(-50%);
   z-index: 10;
 }
 
