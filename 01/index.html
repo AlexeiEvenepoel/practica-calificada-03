@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aula Virtual - Ruleta Aleatoria</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <!-- Google Fonts: Inter y JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Fontawesome para iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
     <div class="container">
-      <h1>Aula Virtual - Ruleta</h1>
+      <h1><i class="fas fa-random"></i> Aula Virtual - Ruleta</h1>
 
       <div class="main-content">
         <div class="ruleta-container">
@@ -22,11 +34,12 @@
             <div class="resultado-label">RESPUESTA</div>
             <div id="elementoSeleccionado"></div>
           </div>
-
           <div class="buttons">
-            <button id="btnIniciar" class="btn btn-primary">Iniciar</button>
+            <button id="btnIniciar" class="btn btn-primary">
+              <i class="fas fa-play"></i> Iniciar
+            </button>
             <button id="btnReiniciar" class="btn btn-secondary">
-              Reiniciar
+              <i class="fas fa-sync-alt"></i> Reiniciar
             </button>
           </div>
 
@@ -47,20 +60,37 @@
             >
 
             <div class="textarea-buttons">
-              <button id="btnTitulo" class="btn">Título</button>
-              <button id="btnEditar" class="btn">Editar</button>
-              <button id="btnEsconder" class="btn">esconder...</button>
+              <button id="btnTitulo" class="btn">
+                <i class="fas fa-heading"></i> Título
+              </button>
+              <button id="btnEditar" class="btn">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+              <button id="btnEsconder" class="btn">
+                <i class="fas fa-eye-slash"></i> Esconder
+              </button>
             </div>
           </div>
-
           <div class="instructions">
-            <div><span class="key">SPACE</span> Giralo</div>
             <div>
-              <span class="key">S</span> Ocultar el elemento seleccionado
+              <span class="key">SPACE</span>
+              <i class="fas fa-circle-play"></i> Giralo
             </div>
-            <div><span class="key">R</span> Reiniciar</div>
-            <div><span class="key">E</span> Editar</div>
-            <div><span class="key">F</span> Pantalla completa</div>
+            <div>
+              <span class="key">S</span>
+              <i class="fas fa-eye-slash"></i> Ocultar el elemento seleccionado
+            </div>
+            <div>
+              <span class="key">R</span>
+              <i class="fas fa-sync-alt"></i> Reiniciar
+            </div>
+            <div>
+              <span class="key">E</span> <i class="fas fa-edit"></i> Editar
+            </div>
+            <div>
+              <span class="key">F</span> <i class="fas fa-expand"></i> Pantalla
+              completa
+            </div>
           </div>
         </div>
       </div>

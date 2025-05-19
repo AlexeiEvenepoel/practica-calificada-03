@@ -1,5 +1,5 @@
-// Declaración de variables globales
-const COLORES_RULETA = ["#F94144", "#4D908E", "#277DA1", "#F9C74F", "#90BE6D"];
+// Declaración de variables globales con colores más contrastados y modernos
+const COLORES_RULETA = ["#6366F1", "#F43F5E", "#10B981", "#F59E0B", "#8B5CF6"];
 let elementosRuleta = [];
 let elementosOcultos = [];
 let anguloActual = 0;
@@ -72,6 +72,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Si no hay elementos, dibujar círculo vacío
     if (elementosVisibles.length === 0) {
       ctx.clearRect(0, 0, ruletaCanvas.width, ruletaCanvas.height);
+
+      // Fondo de ruleta vacía con diseño moderno
+      const gradientEmpty = ctx.createLinearGradient(
+        0,
+        0,
+        ruletaCanvas.width,
+        ruletaCanvas.height
+      );
+      gradientEmpty.addColorStop(0, "#e5e7eb");
+      gradientEmpty.addColorStop(1, "#d1d5db");
+
       ctx.beginPath();
       ctx.arc(
         ruletaCanvas.width / 2,
@@ -80,9 +91,17 @@ document.addEventListener("DOMContentLoaded", function () {
         0,
         Math.PI * 2
       );
-      ctx.fillStyle = "#EEEEEE";
+      ctx.fillStyle = gradientEmpty;
       ctx.fill();
+
+      // Borde con sombra
+      ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+      ctx.shadowBlur = 15;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#c4c4c4";
       ctx.stroke();
+      ctx.shadowBlur = 0;
+
       mensajeRuleta.textContent = "No hay elementos";
       return;
     }
@@ -92,6 +111,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Calcular el ángulo para cada sector
     const anguloSector = (Math.PI * 2) / elementosVisibles.length;
+    const radioRuleta = 180;
+
+    // Agregar sombra exterior a la ruleta
+    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 5;
 
     // Dibujar cada sector de la ruleta
     elementosVisibles.forEach((elemento, index) => {
@@ -99,49 +125,91 @@ document.addEventListener("DOMContentLoaded", function () {
       const startAngle = anguloActual + index * anguloSector;
       const endAngle = startAngle + anguloSector;
 
-      // Dibujar sector
+      // Dibujar sector con efecto de profundidad
       ctx.beginPath();
       ctx.moveTo(ruletaCanvas.width / 2, ruletaCanvas.height / 2);
       ctx.arc(
         ruletaCanvas.width / 2,
         ruletaCanvas.height / 2,
-        180,
+        radioRuleta,
         startAngle,
         endAngle
       );
       ctx.closePath();
 
       // Asignar color (repite colores si hay más de 5 elementos)
-      ctx.fillStyle = COLORES_RULETA[index % COLORES_RULETA.length];
+      let baseColor = COLORES_RULETA[index % COLORES_RULETA.length];
+      ctx.fillStyle = baseColor;
       ctx.fill();
-      ctx.stroke();
 
-      // Agregar texto del elemento
+      // Dibujar líneas divisorias con efecto brillante
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.stroke();
+    });
+
+    // Quitar sombra para el resto de los elementos
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+
+    // Segundo pase para añadir el texto y detalles sin sombra
+    elementosVisibles.forEach((elemento, index) => {
+      const startAngle = anguloActual + index * anguloSector;
       const textAngle = startAngle + anguloSector / 2;
       const textX = ruletaCanvas.width / 2 + Math.cos(textAngle) * 130;
       const textY = ruletaCanvas.height / 2 + Math.sin(textAngle) * 130;
 
+      // Agregar texto del elemento con mejor legibilidad
       ctx.save();
       ctx.translate(textX, textY);
       ctx.rotate(textAngle + Math.PI / 2);
-      ctx.fillStyle = "black";
-      ctx.font = "bold 20px Arial";
+
+      // Sombra del texto para mejor legibilidad
+      ctx.fillStyle = "white";
+      ctx.font = "bold 22px Inter";
       ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      // Contorno del texto
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.7)";
+      ctx.lineWidth = 4;
+      ctx.lineJoin = "round";
+      ctx.miterLimit = 2;
+      ctx.strokeText(elemento, 0, 0);
       ctx.fillText(elemento, 0, 0);
+
       ctx.restore();
     });
 
-    // Dibujar círculo central
+    // Dibujar círculo central con efecto glassmorphism
     ctx.beginPath();
     ctx.arc(
       ruletaCanvas.width / 2,
       ruletaCanvas.height / 2,
-      50,
+      60,
       0,
       Math.PI * 2
     );
-    ctx.fillStyle = "#333333";
+
+    // Gradiente para el círculo central
+    const gradient = ctx.createRadialGradient(
+      ruletaCanvas.width / 2,
+      ruletaCanvas.height / 2,
+      10,
+      ruletaCanvas.width / 2,
+      ruletaCanvas.height / 2,
+      60
+    );
+    gradient.addColorStop(0, "rgba(33, 33, 33, 0.95)");
+    gradient.addColorStop(1, "rgba(23, 23, 23, 0.9)");
+
+    ctx.fillStyle = gradient;
     ctx.fill();
+
+    // Borde brillante para el círculo central
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+    ctx.stroke();
 
     // Actualizar mensaje
     mensajeRuleta.textContent = estaGirando
@@ -174,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Determinar duración del giro (entre 3 y 5 segundos)
     const duracion = 3000 + Math.random() * 2000;
-    const tiempoInicio = performance.now();    // Función de animación del giro
+    const tiempoInicio = performance.now(); // Función de animación del giro
     function animarGiro(tiempoActual) {
       // Calcular progreso de la animación
       const tiempoTranscurrido = tiempoActual - tiempoInicio;
@@ -185,15 +253,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Calcular ángulo actual según el progreso
       anguloActual =
-        anguloActual + (anguloFinal - anguloActual) * progresoEasing;      // Calcular y mostrar el elemento seleccionado en tiempo real
-      if (progreso > 0.85) { // Adelantamos el momento de mostrar el resultado
+        anguloActual + (anguloFinal - anguloActual) * progresoEasing; // Calcular y mostrar el elemento seleccionado en tiempo real
+      if (progreso > 0.85) {
+        // Adelantamos el momento de mostrar el resultado
         const anguloNormalizado = anguloActual % (Math.PI * 2);
         const anguloPuntero = -Math.PI / 2;
         const anguloSector = (Math.PI * 2) / elementosVisibles.length;
-        const sectorSeleccionado = Math.floor(((anguloPuntero - anguloNormalizado) / anguloSector) % elementosVisibles.length);
-        elementoSeleccionadoIndex = (sectorSeleccionado + elementosVisibles.length) % elementosVisibles.length;
-        elementoSeleccionadoDiv.textContent = elementosVisibles[elementoSeleccionadoIndex];
-        
+        const sectorSeleccionado = Math.floor(
+          ((anguloPuntero - anguloNormalizado) / anguloSector) %
+            elementosVisibles.length
+        );
+        elementoSeleccionadoIndex =
+          (sectorSeleccionado + elementosVisibles.length) %
+          elementosVisibles.length;
+        elementoSeleccionadoDiv.textContent =
+          elementosVisibles[elementoSeleccionadoIndex];
+
         // Actualizar el mensaje cuando la ruleta está casi detenida
         if (progreso > 0.9) {
           mensajeRuleta.textContent = "haz clic para girarlo";
@@ -213,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iniciar animación
     requestAnimationFrame(animarGiro);
-  }  // Finalizar el giro y mostrar el resultado
+  } // Finalizar el giro y mostrar el resultado
   function finalizarGiro(elementosVisibles) {
     estaGirando = false;
 
