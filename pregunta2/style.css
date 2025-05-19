@@ -127,3 +127,32 @@ button {
   display: flex;
   gap: 10px;
 }
+
+
+#resultado {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.equipo {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.equipo h3 {
+  margin-top: 0;
+  background: #d52e92;
+  color: white;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+}
