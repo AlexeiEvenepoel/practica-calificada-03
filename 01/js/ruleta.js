@@ -212,9 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.stroke();
 
     // Actualizar mensaje
-    mensajeRuleta.textContent = estaGirando
-      ? "girando..."
-      : "haz clic para girarlo";
+    mensajeRuleta.textContent = estaGirando ? "girando..." : "Gira la ruleta";
   }
 
   // F3: Girar la ruleta aleatoriamente
