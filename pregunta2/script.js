@@ -100,39 +100,69 @@ function copiarColumnas() {
 }
 
 function descargar() {
-  const div = document.getElementById("resultado");
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600">
-    <foreignObject width="100%" height="100%">
-      <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,sans-serif">
-        ${div.outerHTML}
-      </div>
-    </foreignObject>
-  </svg>`;
+  const equipos = document.querySelectorAll(".equipo");
+  if (equipos.length === 0) {
+    alert("Primero genera los equipos.");
+    return;
+  }
 
-  const blob = new Blob([svg], {type: "image/svg+xml;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-  const img = new Image();
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
-  img.onload = function () {
-    const canvas = document.createElement("canvas");
-    canvas.width = 1000;
-    canvas.height = 600;
-    const ctx = canvas.getContext("2d");
+  const padding = 20;
+  const columnWidth = 250;
+  const rowHeight = 20;
+  const maxColumns = 3;
+
+  const totalWidth = (columnWidth + padding) * Math.min(equipos.length, maxColumns);
+  const totalRows = Math.ceil(equipos.length / maxColumns);
+  let maxItemsPerEquipo = 0;
+
+  equipos.forEach(e => {
+    const itemCount = e.querySelectorAll("li").length;
+    if (itemCount > maxItemsPerEquipo) maxItemsPerEquipo = itemCount;
+  });
+
+  const totalHeight = totalRows * (rowHeight * (maxItemsPerEquipo + 2) + padding);
+
+  canvas.width = totalWidth;
+  canvas.height = totalHeight;
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#333";
+
+  let x = 0, y = 0;
+
+  equipos.forEach((equipo, index) => {
+    const titulo = equipo.querySelector("h3").textContent;
+    const integrantes = [...equipo.querySelectorAll("li")].map(li => li.textContent);
+
+    const col = index % maxColumns;
+    const row = Math.floor(index / maxColumns);
+
+    x = col * (columnWidth + padding) + padding;
+    y = row * (rowHeight * (maxItemsPerEquipo + 2) + padding) + padding;
+
+    ctx.fillStyle = "#d52e92";
+    ctx.fillRect(x - 5, y - 20, columnWidth - 10, 25);
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0);
-    URL.revokeObjectURL(url);
+    ctx.fillText(titulo, x, y);
 
-    canvas.toBlob(function(blob) {
-      const link = document.createElement("a");
-      link.download = "equipos.jpg";
-      link.href = URL.createObjectURL(blob);
-      link.click();
-    }, "image/jpeg");
-  };
+    ctx.fillStyle = "#333";
+    integrantes.forEach((name, i) => {
+      ctx.fillText("• " + name, x, y + (i + 1) * rowHeight);
+    });
+  });
 
-  img.src = url;
+  const link = document.createElement("a");
+  link.download = "equipos.jpg";
+  link.href = canvas.toDataURL("image/jpeg");
+  link.click();
 }
+
 
 // Generar dinámicamente el menú según el modo
 function actualizarOpciones() {
