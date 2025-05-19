@@ -185,16 +185,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Calcular ángulo actual según el progreso
       anguloActual =
-        anguloActual + (anguloFinal - anguloActual) * progresoEasing;
-
-      // Calcular y mostrar el elemento seleccionado en tiempo real
-      if (progreso > 0.95) { // Cuando está cerca del final
+        anguloActual + (anguloFinal - anguloActual) * progresoEasing;      // Calcular y mostrar el elemento seleccionado en tiempo real
+      if (progreso > 0.85) { // Adelantamos el momento de mostrar el resultado
         const anguloNormalizado = anguloActual % (Math.PI * 2);
         const anguloPuntero = -Math.PI / 2;
         const anguloSector = (Math.PI * 2) / elementosVisibles.length;
         const sectorSeleccionado = Math.floor(((anguloPuntero - anguloNormalizado) / anguloSector) % elementosVisibles.length);
         elementoSeleccionadoIndex = (sectorSeleccionado + elementosVisibles.length) % elementosVisibles.length;
         elementoSeleccionadoDiv.textContent = elementosVisibles[elementoSeleccionadoIndex];
+        
+        // Actualizar el mensaje cuando la ruleta está casi detenida
+        if (progreso > 0.9) {
+          mensajeRuleta.textContent = "haz clic para girarlo";
+        }
       }
 
       // Dibujar la ruleta con el nuevo ángulo
@@ -210,18 +213,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iniciar animación
     requestAnimationFrame(animarGiro);
-  }
-  // Finalizar el giro y mostrar el resultado
+  }  // Finalizar el giro y mostrar el resultado
   function finalizarGiro(elementosVisibles) {
     estaGirando = false;
 
     // Normalizar el ángulo final
     anguloActual = anguloActual % (Math.PI * 2);
 
-    // El elemento ya debería estar mostrado por la animación
-    // Solo actualizamos el estado final y el mensaje
+    // Asegurarse de que el mensaje esté actualizado
+    mensajeRuleta.textContent = "haz clic para girarlo";
 
-    // Actualizar estado visual
+    // Actualizar estado visual final
     dibujarRuleta();
 
     // Actualizar mensaje
